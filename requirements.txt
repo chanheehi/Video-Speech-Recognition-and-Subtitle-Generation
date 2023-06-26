@@ -1,0 +1,12 @@
+torch
+openai
+beautifulsoup4
+tqdm
+pyinstaller
+gradio
+whisper
+moviepy
+tqdm
+tempfile
+pandas
+numpy

@@ -1,0 +1,13 @@
+.venv
+.vscode
+__pycache__
+app.log
+secret_api.py
+01*
+02*
+*.srt
+ignore
+build
+dist
+*.spec
+.DS_Store
