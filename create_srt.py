@@ -3,8 +3,6 @@ import time
 import os
 from tempfile import TemporaryDirectory
 from typing import *
-# for _ in tqdm.tqdm(range(10000000), desc='진행율'):
-#     pass
     
 def Create_srt(raw_text, file_name):
     # os_path = os.path.dirname(__file__)[:os.path.dirname(__file__).find('PC')+3]

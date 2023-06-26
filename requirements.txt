@@ -9,3 +9,4 @@ moviepy
 tqdm
 pandas
 numpy
+ffmpeg

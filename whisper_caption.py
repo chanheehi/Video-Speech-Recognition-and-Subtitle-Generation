@@ -42,8 +42,7 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
             index += 30
             
         
-        path_tmp_num = temp_saving_location.rfind('\\')
-        base_path_to_saved_files = temp_saving_location[:path_tmp_num]
+        base_path_to_saved_files, file = os.path.split(temp_saving_location)
         list_of_files = os.listdir(base_path_to_saved_files)
         list_of_files = [file for file in list_of_files if file.startswith(file_name)]
         start = 0
