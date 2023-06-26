@@ -6,7 +6,7 @@ from create_srt import Create_srt
 from tempfile import TemporaryDirectory
 
 def Whisper_caption(file_full_name, file_path, language, model_size, onoff, progress):
-    audio_clip = AudioFileClip(f'{file_path}\\{file_full_name}')
+    audio_clip = AudioFileClip(os.path.join(file_path, file_full_name))
     n = round(audio_clip.duration)
     counter = 0
     start = 0
@@ -20,7 +20,7 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
     file_name = file_full_name.split('.')[0]
     with TemporaryDirectory() as fp:
         while(True):
-            audio_clip = AudioFileClip(f'{file_path}\\{file_full_name}')
+            audio_clip = AudioFileClip(os.path.join(file_path, file_full_name))
             if index >= n:
                 if onoff == 'Off':
                     break
@@ -29,7 +29,9 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
 
             temp = audio_clip.subclip(start, index)
 
-            temp_saving_location = f'{fp}\\{file_name}_{counter}.mp3'
+            # temp_saving_location = f'{fp}\\{file_name}_{counter}.mp3'
+            temp_saving_location = os.path.join(fp, f'{file_name}_{counter}.mp3')
+
             temp.write_audiofile(filename=temp_saving_location)
             temp.close()
             counter += 1
@@ -85,5 +87,5 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
             data['end'] = fur_data['start']
             data[duration] = data['end'] - data['start']
 
-        notepad_content, os_path = Create_srt(final_list_of_text, file_name)
-    return notepad_content, os_path
+        notepad_content = Create_srt(final_list_of_text, file_name)
+    return notepad_content

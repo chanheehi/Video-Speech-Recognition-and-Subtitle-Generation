@@ -1,0 +1,2 @@
+file_name(파일명에 .이 존재하면 안됨),input_language(입력 동영상의 언어),output_language(chatgpt_api_key를 채우지 않을 시 output_language는 input_language과 같음),model_size(large-v2[느리지만 정확함]),chatgpt_api_key(GPT를 활용해 한글로 번역하지 않을것이라면 비워놓아야함),error 발생 시 Off로 설정(Off 설정 시 동영상 마지막30초는 자막 생성X),contents,flag,username,timestamp
+C:\Users\PC\Desktop\GitCode\Video-Speech-Recognition-and-Subtitle-Generation\flagged\file_name파일명에 .이 존재하면 안됨\0ba33de279c620e81c547f3a029640994a7d4e4c\TalkMedia_talkv_high.mp4,english,korean,large,,On,,,,2023-06-27 01:41:51.051144

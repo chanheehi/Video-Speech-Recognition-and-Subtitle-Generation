@@ -1,24 +1,29 @@
 from GptSrtTranslator import GptSrtTranslator
 import time
+from tempfile import TemporaryDirectory
+import os
 
-def Gpt_translate(chatgpt_api_key, input_file, input_language, output_language, os_path):
+
+def Gpt_translate(chatgpt_api_key, input_file, input_language, output_language):
     GptSrtTranslator.API_KEY = chatgpt_api_key
     GptSrtTranslator.MODEL_ENGINE = "gpt-3.5-turbo-0301"
 
-    input_file = input_file[:input_file.rfind('.')]+'.srt'
-    input_language, output_language = Short2long_lang(input_language, output_language)
-    subtitle = GptSrtTranslator(input_file=f'{os_path}{input_file}',
-                                output_file=f'{os_path}{input_file.split(".")[0]}_gpt.srt',
-                                input_language=input_language,
-                                output_language=output_language,
-                                # break after 40 characters
-                                subtitle_line_max_length=40)
-
-    subtitle.translate()
-    time.sleep(0.5)
-    with open(f'{os_path}{input_file.split(".")[0]}_gpt.srt', "r", encoding='utf-8') as f:
-        gpt_content = f.read()
-    f.close()
+    with TemporaryDirectory() as temp_dir:
+        input_file = input_file[:input_file.rfind('.')]+'.srt'
+        input_path = os.path.join(temp_dir, input_file)
+        output_path = os.path.join(temp_dir, f'{input_file.split(".")[0]}_gpt.srt')
+        input_language, output_language = Short2long_lang(input_language, output_language)
+        subtitle = GptSrtTranslator(
+            input_file=input_path,
+            output_file=output_path,
+            input_language=input_language,
+            output_language=output_language,
+            # break after 40 characters
+            subtitle_line_max_length=40,
+        )
+        subtitle.translate()
+        with open(output_path, "r", encoding='utf-8') as f:
+            gpt_content = f.read()
     return gpt_content
 
 # 언어 치환
