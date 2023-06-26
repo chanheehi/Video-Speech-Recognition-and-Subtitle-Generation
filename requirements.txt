@@ -7,6 +7,5 @@ gradio
 whisper
 moviepy
 tqdm
-tempfile
 pandas
 numpy
