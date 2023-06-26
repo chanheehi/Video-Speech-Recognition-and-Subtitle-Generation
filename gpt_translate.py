@@ -4,13 +4,15 @@ from tempfile import TemporaryDirectory
 import os
 
 
-def Gpt_translate(chatgpt_api_key, input_file, input_language, output_language):
+def Gpt_translate(chatgpt_api_key, input_file, input_language, output_language, notepad_content: str):
     GptSrtTranslator.API_KEY = chatgpt_api_key
     GptSrtTranslator.MODEL_ENGINE = "gpt-3.5-turbo-0301"
 
     with TemporaryDirectory() as temp_dir:
         input_file = input_file[:input_file.rfind('.')]+'.srt'
         input_path = os.path.join(temp_dir, input_file)
+        with open(input_path, 'w', encoding='utf-8') as f:
+            f.write(notepad_content)
         output_path = os.path.join(temp_dir, f'{input_file.split(".")[0]}_gpt.srt')
         input_language, output_language = Short2long_lang(input_language, output_language)
         subtitle = GptSrtTranslator(

@@ -3,23 +3,20 @@ from whisper_caption import Whisper_caption
 from gpt_translate import Gpt_translate, Long2short_lang
 import os
 
-# def greet(file_name, input_language, output_language, model_size, chatgpt_api_key, onoff, progress=gr.Progress()):
-def greet(input_language, output_language, model_size, chatgpt_api_key, onoff, progress=gr.Progress()):
+def greet(file_name, input_language, output_language, model_size, chatgpt_api_key, onoff, progress=gr.Progress()):
+# def greet(input_language, output_language, model_size, chatgpt_api_key, onoff, progress=gr.Progress()):
 
-    # num_tmp = file_name.name.rfind('\\')
-    # file_path = file_name.name[:num_tmp]
-    # file_name = file_name.name[num_tmp+1:]
-    # file_path = os.path.dirname(file_name.name)
-    # file_name = os.path.basename(file_name.name)
+    file_path = os.path.dirname(file_name.name)
+    file_name = os.path.basename(file_name.name)
     input_language, output_language = Long2short_lang(input_language, output_language)
-    # notepad_content = Whisper_caption(file_name, file_path, input_language, model_size, onoff, progress)
-    # if chatgpt_api_key == '':
-    #     return notepad_content
-    file_name = "C:\\Users\\PC\\AppData\\Local\\Temp\\gradio\\47adffb8341a6d0a567eb77c1dd073ba0c68322c\\ad.srt"
-    gpt_content = Gpt_translate(chatgpt_api_key, file_name, input_language, output_language)
+    notepad_content = Whisper_caption(file_name, file_path, input_language, model_size, onoff, progress)
+    if chatgpt_api_key == '':
+        return notepad_content
+    # file_name = "C:\\Users\\PC\\AppData\\Local\\Temp\\gradio\\47adffb8341a6d0a567eb77c1dd073ba0c68322c\\ad.srt"
+    gpt_content = Gpt_translate(chatgpt_api_key, file_name, input_language, output_language, notepad_content)
     return gpt_content
 
-demo = gr.Interface(fn=greet, inputs=[#gr.File(label="file_name(파일명에 .이 존재하면 안됨)"),
+demo = gr.Interface(fn=greet, inputs=[gr.File(label="file_name(파일명에 .이 존재하면 안됨)"),
                                       gr.Dropdown(["english", "japanese", "chinese", "korean", "spanish", "french"], label="input_language(입력 동영상의 언어)", value="english"),
                                       gr.Dropdown(["english", "japanese", "chinese", "korean", "spanish", "french"], label="output_language(chatgpt_api_key를 채우지 않을 시 output_language는 input_language과 같음)", value="korean"),
                                       gr.Dropdown(["medium", "large", "large-v1", "large-v2"], label="model_size(large-v2[느리지만 정확함])", value="large-v2"),
