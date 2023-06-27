@@ -8,16 +8,17 @@ from tempfile import TemporaryDirectory
 def Whisper_caption(file_full_name, file_path, language, model_size, onoff, progress):
     audio_clip = AudioFileClip(os.path.join(file_path, file_full_name))
     n = round(audio_clip.duration)
+    audio_clip.close()
     counter = 0
     start = 0
-    audio_clip.close()
     index = 30
 
     flag_to_exit = False
     print('Temp directory:', file_path)
     model = whisper.load_model(model_size)
-
-    file_name = file_full_name.split('.')[0]
+    file_name, tmp= os.path.splitext(file_full_name)
+    
+    
     with TemporaryDirectory() as fp:
         while(True):
             audio_clip = AudioFileClip(os.path.join(file_path, file_full_name))
@@ -28,10 +29,7 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
                 index = n
 
             temp = audio_clip.subclip(start, index)
-
-            # temp_saving_location = f'{fp}\\{file_name}_{counter}.mp3'
             temp_saving_location = os.path.join(fp, f'{file_name}_{counter}.mp3')
-
             temp.write_audiofile(filename=temp_saving_location)
             temp.close()
             counter += 1
@@ -52,7 +50,7 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
 
         progress(0, desc='staring')
         time.sleep(0.5)
-        for index in progress.tqdm(range(len(list_of_files)), desc='음성 인식 진행율'):
+        for index in progress.tqdm(range(len(list_of_files)), desc='음성 인식 진행율(ChatGPT번역까지 할 시 100%가 된 후에도 기다려야함)'):
             path_to_saved_file = os.path.join(base_path_to_saved_files, f'{file_name}_{index}.mp3')
             audio_clip = AudioFileClip(path_to_saved_file)
 
@@ -87,4 +85,5 @@ def Whisper_caption(file_full_name, file_path, language, model_size, onoff, prog
             data[duration] = data['end'] - data['start']
 
         notepad_content = Create_srt(final_list_of_text, file_name)
+    
     return notepad_content

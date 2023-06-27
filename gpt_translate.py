@@ -1,5 +1,4 @@
 from GptSrtTranslator import GptSrtTranslator
-import time
 from tempfile import TemporaryDirectory
 import os
 

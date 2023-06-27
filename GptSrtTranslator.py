@@ -135,7 +135,7 @@ class GptSrtTranslator():
                 try:
                     timestamp = parts[i+1].strip()
                     if parts[i+2].strip() == '':
-                        original = '미래의 스티브 잡스..From CHANHUI'
+                        original = '...'
                     else : 
                         original = parts[i+2].strip()
                 except:
@@ -161,12 +161,12 @@ class GptSrtTranslator():
                         original = re.sub(r'\[.*?\]', '', original)  # remove square brackets and text inside them
                         original = re.sub(r'\s+', ' ', original)  # remove duplicate spaces
 
-                    if original == '미래의 스티브 잡스..From CHANHUI':
+                    if original == '...':
                         original == ''
                     self.srt[index] = {
                         "index": index,
                         "timestamp": timestamp,
-                        "original": original.replace('"', ''),
+                        "original": original.replace('"', '').strip(",").strip("."),
                         "translated": ""
                     }
                     time_index = self.srt[index]["timestamp"].split(" --> ")[0]
@@ -328,6 +328,9 @@ class GptSrtTranslator():
                     # too few lines were returned
                     logger.error("Short string was returned, wating for %d sec to overcome rate limitation...", relax_delay)
                     error_found = True
+                
+                if relax_delay >= 80:
+                    break
 
                 if error_found:
                     time.sleep(relax_delay)

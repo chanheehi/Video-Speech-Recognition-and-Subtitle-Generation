@@ -6,7 +6,5 @@ pyinstaller
 gradio
 whisper
 moviepy
-tqdm
-pandas
 numpy
 ffmpeg

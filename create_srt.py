@@ -5,12 +5,8 @@ from tempfile import TemporaryDirectory
 from typing import *
     
 def Create_srt(raw_text, file_name):
-    # os_path = os.path.dirname(__file__)[:os.path.dirname(__file__).find('PC')+3]
-    # os_path = os_path+'\\Downloads\\'
-    # tmp/file_name.srt
     with TemporaryDirectory() as tmp_dir:
         path_to_save = os.path.join(tmp_dir, f"{file_name}.srt")
-        # path_to_save = f'{os_path}\\{file_name}.srt'
         with open(path_to_save, 'w', encoding='utf-8') as f:
             for i, text in enumerate(raw_text):
                 f.write(str(i+1)+'\n')
@@ -37,7 +33,7 @@ def Create_srt(raw_text, file_name):
                 if i+1 == len(raw_text):
                     f.write(f"\n{text['text'].strip().replace('.','')}")
                     break
-                f.write(f"\n{text['text'].strip()}\n\n")
+                f.write(f"\n{text['text'].strip().replace('�', '').replace('.','').strip(',')}\n\n")
         with open(path_to_save, "r", encoding='utf-8') as f:
             notepad_content = f.read()
 
