@@ -1,37 +1,8 @@
-# gpt_srt_translator
+# Video-Speech-Recognition-and-Subtitle-Generation
+#### Video 음성 인식 및 ChatGPT 번역
+<hr>
 
-Uses chat gpt API to translate a subtitle file (srt) to a different language
+### 결과
+#### -동영상 자막 생성 후(상단[원어[/하단[GPT 번역])
+![bandicam_2023-06-30_18-50-02-954_AdobeExpress_AdobeExpress](https://github.com/chanheehi/Video-Speech-Recognition-and-Subtitle-Generation/assets/101696330/b5b46d27-0aca-4968-b8b9-7bb1ecc424a5)
 
-Usage:
-
-Generate API key here: https://platform.openai.com/account/api-keys
-
-(It is enough to have a free account for gpt)
-
-install the required packages
-
-```
-pip3 install openai beautifulsoup4 tqdm
-```
-
-download GptSrtTranslator.py and put it next to your desired python script.
-
-```
-from GptSrtTranslator import GptSrtTranslator
-
-GptSrtTranslator.API_KEY = "YOUR_API_KEY"
-GptSrtTranslator.MODEL_ENGINE = "gpt-3.5-turbo-0301"
-
-subtitle = GptSrtTranslator(input_file="test.no.srt",
-                            output_file="output.srt",
-                            input_language="norwegian",
-                            output_language="english",
-                            # break after 40 characters
-                            subtitle_line_max_length=40)
-
-subtitle.translate()
-```
-
-Sometimes it merges two subtitles into one causing a shift in the upcoming 1-3 subtitles. Then it sorts itself out and timing is restored.
-
-A little manual compare at the end can easily fix these.
