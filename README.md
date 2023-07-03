@@ -1,5 +1,5 @@
 # Video-Speech-Recognition-and-Subtitle-Generation
-본 코드는 동영상(.mp4)과 오디오(.mp3)에서 음성을 인식하고 자막을 생성해줍니다. 필요시 ChatGPT를 활용한 번역까지 활용할 수 있습니다.
+본 코드는 동영상(.mp4)과 오디오(.mp3)에서 음성을 인식하고 자막을 생성해줍니다. 필요시 ChatGPT를 통해 번역된 자막을 생성할 수 있습니다.
 
 ## 웹페이지 UI
 ![캡처](https://github.com/chanheehi/Video-Speech-Recognition-and-Subtitle-Generation/assets/101696330/2c6cc75c-02dc-41e1-848b-b5af5f567ea8)
