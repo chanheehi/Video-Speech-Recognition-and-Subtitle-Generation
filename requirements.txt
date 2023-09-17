@@ -4,7 +4,7 @@ beautifulsoup4
 tqdm
 pyinstaller
 gradio
-whisper
+openai-whisper
 moviepy
 numpy
 ffmpeg
